@@ -8,10 +8,10 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
 @homepage https://github.com/David-Mulder/paper-date-picker
 -->
 
-<link href="../polymer/polymer.html" rel="import">
-<link href="../paper-button/paper-button.html" rel="import">
+<link href="./bower_components/polymer/polymer.html" rel="import">
+<link href="./bower_components/paper-button/paper-button.html" rel="import">
 
-<polymer-element name="paper-year-picker">
+<dom-module is="paper-year-picker">
   
 <template>
 
@@ -88,7 +88,7 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
        * @type integer
        * @default undefined
        */
-      year: undefined,
+      year: Number,
       
       /**
        * Lowest selectable date (inclusive)
@@ -97,8 +97,10 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
        * @type Date
        * @default 900
        */
-      min: new Date(1900),
-      
+      min: {
+          type: Date,
+          value: new Date(1900),
+      },
       /**
        * Highest selectable date (inclusive)
        *
@@ -106,8 +108,10 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
        * @type Date
        * @default 2100
        */
-      max: new Date(2100),
-        
+      max: {
+        type: Date,
+        value: new Date(2100)
+        },
       /**
        * Locale setting per the HTML5 Intl API
        * 
@@ -116,7 +120,7 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
        * @default undefined
        * 
        */
-      locale: undefined
+      locale: String
     },
     
     yearArray: [],
@@ -168,4 +172,4 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
 })();
 </script>
 
-</polymer-element>
+</dom-module>

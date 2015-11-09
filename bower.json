@@ -1,11 +1,11 @@
 {
   "name": "paper-date-picker",
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.5",
-    "core-animated-pages": "Polymer/core-animated-pages#~0.5.5",
-    "paper-dialog": "Polymer/paper-dialog#~0.5.5",
-    "paper-button": "polymer/paper-button#~0.5.5",
-    "paper-ripple": "polymer/paper-ripple#~0.5.5"
+    "iron-component-page": "PolymerElements/iron-component-page#~1.0.9",
+    "paper-button": "PolymerElements/paper-button#~1.0.8",
+    "paper-dialog": "PolymerElements/paper-dialog#~1.0.2",
+    "paper-ripple": "PolymerElements/paper-ripple#~1.0.4",
+    "polymer": "Polymer/polymer#~1.2.1"
   },
-  "version": "0.1.4"
+  "version": "0.0.1"
 }

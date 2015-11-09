@@ -26,13 +26,15 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
 @homepage https://github.com/David-Mulder/paper-date-picker
 -->
 
-<link href="../polymer/polymer.html" rel="import">
-<link href="../paper-dialog/paper-action-dialog.html" rel="import">
-<link href="../paper-button/paper-button.html" rel="import">
-<link href="../core-animated-pages/core-animated-pages.html" rel="import">
+<link href="./bower_components/polymer/polymer.html" rel="import">
+<link href="./bower_components/paper-dialog/paper-dialog.html" rel="import">
+<link href="./bower_components/paper-button/paper-button.html" rel="import">
+<!--<link href="../core-animated-pages/core-animated-pages.html" rel="import">-->
 
 <link href="paper-date-picker.html" rel="import">
+<!--
 <link href="paper-year-picker.html" rel="import">
+-->
 
 <style shim-shadowdom>
   html /deep/ .date-picker-dialog::shadow #scroller {
@@ -121,7 +123,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   
 </style>
 
-<polymer-element name="paper-date-picker-dialog">
+<dom-module is="paper-date-picker-dialog">
   
 <template>
 
@@ -131,13 +133,13 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     }
   </style>
 
-  <paper-action-dialog id="dialog" class="date-picker-dialog" backdrop on-core-overlay-open-completed="{{dialogOpened}}">
+  <paper-dialog id="dialog" class="date-picker-dialog" backdrop on-core-overlay-open-completed="{{dialogOpened}}">
     <div id="container">
       <div class="header" layout vertical flex>
         <div class="dayOfWeekContainer selected">{{ dayOfWeek }}</div>
-        <div class="monthContainer selected" on-tap="{{ showDatePicker }}" id="month" flex><span>{{ monthShortName }}</span></div>
-        <div class="dayOfMonthContainer selected" on-tap="{{ showDatePicker }}" id="day" flex><span>{{ dayOfMonth }}</span></div>
-        <div class="yearContainer" id="year" on-tap="{{ showYearPicker }}" flex><span>{{ formattedYear }}</span></div>
+        <div class="monthContainer selected" on-tap="showDatePicker" id="month" flex><span>{{ monthShortName }}</span></div>
+        <div class="dayOfMonthContainer selected" on-tap="showDatePicker" id="day" flex><span>{{ dayOfMonth }}</span></div>
+        <div class="yearContainer" id="year" on-tap="showYearPicker" flex><span>{{ formattedYear }}</span></div>
       </div>
       <core-animated-pages transitions="cross-fade" class="datePickerContainer" selected="{{page}}">
         <section>
@@ -149,9 +151,9 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
       </core-animated-pages>
     </div>
     <paper-button affirmative>Cancel</paper-button>
-    <paper-button affirmative on-tap={{setDate}}>OK</paper-button>
+    <paper-button affirmative on-tap="setDate">OK</paper-button>
 
-  </paper-action-dialog>
+  </paper-dialog>
 </template>
 
 <script>
@@ -182,8 +184,9 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     'DEC'
   ];
 
-  Polymer('paper-date-picker-dialog', {
-    publish: {
+  Polymer({
+    is: 'paper-date-picker-dialog',
+      properties: {
       
       /**
        * `value`, the selected date.
@@ -192,7 +195,9 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @type String
        * @default undefined
        */
-      value: undefined,
+      value: {
+          type: Date
+      },
       
       /**
        * immediateDate, the currently selected
@@ -202,7 +207,10 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @type Date
        * @default today
        */
-      immediateDate: new Date(),
+      immediateDate:{
+          type: Date,
+          value: new Date()
+      },
         
       /**
        * Lowest selectable date (inclusive)
@@ -211,8 +219,10 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @type Date
        * @default 1/1/1900
        */
-      min: new Date(1900,0,1),
-      
+      min:{
+          type: Date,
+            value: new Date(1900,0,1)
+      },
       /**
        * Highest selectable date (inclusive)
        *
@@ -220,7 +230,10 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @type Date
        * @default 31/12/2100
        */
-      max: new Date(2100,11,31),
+      max:{
+          type: Date,
+          value:new Date(2100,11,31) 
+      },
         
       /**
        * Show only a single year at a time
@@ -232,7 +245,10 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @type String or boolean
        * @default 'auto'
        */
-      infiniteScrolling: 'auto',
+      infiniteScrolling: {
+          type: String,
+          value: 'auto'
+      },
         
       /**
        * Locale setting per the HTML5 Intl API
@@ -242,7 +258,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @default user system
        * 
        */
-      locale: undefined,
+      locale: String,
       
       /**
        * Start day of week, expressed as 0-6
@@ -252,9 +268,12 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @default 1
        * 
        */
-      startDayOfWeek: 1
-    },
-    
+      startDayOfWeek: {
+          type: Number,
+          value: 1
+        }
+      },
+      
     dayOfWeek: '',
     dayOfMonth: 0,
     monthShortName: '',
@@ -365,4 +384,4 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
 })();
 </script>
 
-</polymer-element>
+</dom-module>

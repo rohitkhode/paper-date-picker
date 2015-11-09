@@ -18,10 +18,10 @@ Example:
 @homepage https://github.com/David-Mulder/paper-date-picker
 -->
 
-<link href="../polymer/polymer.html" rel="import">
-<link href="../paper-ripple/paper-ripple.html" rel="import">
+<link href="./bower_components/polymer/polymer.html" rel="import">
+<link href="./bower_components/paper-ripple/paper-ripple.html" rel="import">
 
-<polymer-element name="paper-date-picker">
+<dom-module is="paper-date-picker">
 
 <template>
 
@@ -121,22 +121,22 @@ Example:
     
   </style>
   
-  <div on-tap="{{pickDate}}" id="container" on-scroll="{{scrollFinished}}">
-    <template repeat="{{ month in months }}">
+  <div on-tap="pickDate" id="container" on-scroll="scrollFinished">
+    <template is="dom-repeat" items="{{month in months}}">
       <div class="month" data-month="{{month.number}}" data-year="{{month.year}}">
         <h1>{{month.name}}</h1>
           <div class="days">
           
-          <template repeat="{{name in weekDayNames}}">
+          <template is="dom-repeat" items="{{name in weekDayNames}}">
             <div class="day title">{{name}}</div>
           </template>
           
-          <template repeat="{{ day in month.days }}">
+          <template is="dom-repeat" items="{{day in month.days}}">
         
-            <template if="{{!day}}">
+            <template is="dom-if" if="{{!day}}">
               <div class="day"></div>
             </template>
-            <template if="{{day}}">
+            <template is="dom-if" if="{{day}}">
               <div class="day {{ { selected : day.n == currentDay && month.number == currentMonth && month.year == currentYear } | tokenList }}" enabled="{{day.enabled}}" data-date="{{day.n}}" data-month="{{month.number}}" data-year="{{month.year}}">
                 <span>{{day.day}}</span>
               </div>
@@ -161,9 +161,9 @@ Example:
       return [m < 0 ? m + 12: m, obj[1]+Math.floor(obj[0]/12)];
     }
 
-    Polymer('paper-date-picker', {
-
-      publish: {
+    Polymer({
+        is: 'paper-date-picker',
+      properties: {
         /**
          * Current date
          *
@@ -171,8 +171,10 @@ Example:
          * @type Date
          * @default 'today\'s date'
          */
-        date: new Date(),
-        
+        date: {
+            type: Date,
+            value: new Date()
+        },
         /**
          * Lowest selectable date (inclusive)
          *
@@ -180,8 +182,10 @@ Example:
          * @type Date
          * @default 1/1/1900
          */
-        min: new Date(1900,0,1),
-        
+        min: {
+            type: Date,
+            value : new Date(1900,0,1)
+        },
         /**
          * Highest selectable date (inclusive)
          *
@@ -189,7 +193,10 @@ Example:
          * @type Date
          * @default 31/12/2100
          */
-        max: new Date(2100,11,31),
+        max:{
+            type: Date,
+            value: new Date(2100,11,31)
+      },
         
         /**
          * Show only a single year at a time
@@ -201,7 +208,10 @@ Example:
          * @type String or boolean
          * @default 'auto'
          */
-        infiniteScrolling: 'auto',
+        infiniteScrolling: {
+            type: String,
+            value: 'auto'
+        },
         
         /**
          * Locale setting per the HTML5 Intl API
@@ -211,7 +221,7 @@ Example:
          * @default undefined
          * 
          */
-        locale: undefined,
+        locale: String,
         
         /**
          * Start day of week, expressed as 0-6
@@ -221,7 +231,10 @@ Example:
          * @default 1
          * 
          */
-        startDayOfWeek: 1
+        startDayOfWeek: {
+            type: Number,
+            value: 1
+        }
       },
       
       currentYear : 0,
@@ -312,8 +325,9 @@ Example:
         var that = this;
         
         setTimeout(function(){
-          
-          var monthElements = that.shadowRoot.querySelectorAll(".month");
+          var _shadow_root = that.shadowRoot?that.shadowRoot:that.shadyRoot;
+            
+          var monthElements = _shadow_root.querySelectorAll(".month");
           var startLoadedDateOutsideTriggerRange = new Date(monthElements[that.triggerRange].dataset.year,monthElements[that.triggerRange].dataset.month*1-1,1);
           var endLoadedDateOutsideTriggerRange = new Date(monthElements[monthElements.length - that.triggerRange - 1].dataset.year,monthElements[monthElements.length - that.triggerRange - 1].dataset.month*1-1+1,1);
           
@@ -325,7 +339,9 @@ Example:
         
         setTimeout(function(){
           
-          var monthElements = that.shadowRoot.querySelectorAll(".month");
+          var _shadow_root = that.shadowRoot?that.shadowRoot:that.shadyRoot;
+
+          var monthElements = _shadow_root.querySelectorAll(".month");
           var scrollTop = 0;
           
           for(var i=0;i<monthElements.length;i++){
@@ -358,7 +374,10 @@ Example:
       scrollFinished: function(){
         
         if(this.infiniteScrolling == true){
-          var monthElements = this.shadowRoot.querySelectorAll(".month");
+            
+        var _shadow_root = that.shadowRoot?that.shadowRoot:that.shadyRoot;
+
+          var monthElements = _shadow_root.querySelectorAll(".month");
           
           for(var i=monthElements.length-1;i>=0;i--){
             if(this.$.container.scrollTop+this.$.container.clientHeight/2 > monthElements[i].offsetTop){
@@ -427,4 +446,4 @@ Example:
 
 </script>
 
-</polymer-element>
+</dom-module>
