@@ -68,9 +68,9 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
   </style>
  
  <div id="container">
-    <template repeat="{{ y in yearArray }}">
-        <!--<paper-button class="year {{ { selected : y == year} | tokenList  }}" on-tap="{{ yearSelected }}" data-year="{{ y }}"><span>{{ y }}</span></paper-button>-->
-        <div class="year {{ { selected : y.n == year} | tokenList  }}" on-tap="{{ yearSelected }}" data-year="{{ y.n }}"><span>{{ y.year }}</span></div>
+    <template repeat="{{yearArray}}" as="y">
+        <!--<paper-button class="year {{ { selected : y == year} | tokenList  }}" on-tap="{{ yearSelected }}" data-year$="{{ y }}"><span>{{ y }}</span></paper-button>-->
+        <div class="year {{ { selected : y.n == year} | tokenList  }}" on-tap="{{ yearSelected }}" data-year$="{{y.n}}"><span>{{y.year}}</span></div>
     </template>
   </div>
 
