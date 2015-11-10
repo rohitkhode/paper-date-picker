@@ -88,8 +88,10 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
        * @type integer
        * @default undefined
        */
-      year: Number,
-      
+      year: {
+          type: Number,
+          observer: 'yearChanged'
+      },
       /**
        * Lowest selectable date (inclusive)
        *
@@ -120,7 +122,10 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
        * @default undefined
        * 
        */
-      locale: String
+      locale: {
+          type: String,
+          observer: 'localeChanged'
+      }
     },
     
     yearArray: [],

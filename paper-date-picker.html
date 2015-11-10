@@ -175,7 +175,8 @@ Example:
                     date: {
                         type: Date,
                         value: new Date(),
-                        observer:'dateChanged'
+                        observer:'dateChanged',
+                        notify: true
                     },
                     /**
                      * Lowest selectable date (inclusive)
@@ -223,8 +224,10 @@ Example:
                      * @default undefined
                      * 
                      */
-                    locale: String,
-
+                    locale: {
+                        type: String,
+                        observer: 'localeChanged'
+                    },
                     /**
                      * Start day of week, expressed as 0-6
                      * 
