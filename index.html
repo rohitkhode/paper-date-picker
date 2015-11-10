@@ -3,12 +3,19 @@
 <head>
 
   <script src="./bower_components/webcomponentsjs/webcomponents.js"></script>
+    
+    <script>
+        window.Polymer = window.Polymer || {};
+        window.Polymer.dom = 'shadow';
+    </script>
+    
+  <link rel="import" href="./bower_components/polymer/polymer.html">
   <link rel="import" href="./bower_components/iron-component-page/iron-component-page.html">
 
 </head>
 <body unresolved>
 
-  <iron-component-page sources='["paper-date-picker-dialog.html"]'></iron-component-page>
+  <iron-component-page src='paper-date-picker-dialog.html'></iron-component-page>
 
 </body>
 </html>

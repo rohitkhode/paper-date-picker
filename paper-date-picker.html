@@ -210,7 +210,7 @@ Example:
                      * @default 'auto'
                      */
                     infiniteScrolling: {
-                        type: String,
+                        type: Object,
                         value: 'auto'
                     },
 
@@ -438,9 +438,12 @@ Example:
                     // it is disabled by default.
                     if (this.infiniteScrolling == 'auto') {
                         if (typeof window.orientation !== 'undefined') {
-                            this.set('infiniteScrolling',false);
+                            this.infiniteScrolling = false;
+                            //this.set('infiniteScrolling',false);
+                            
                         } else {
-                            this.set('infiniteScrolling',true);
+                            this.infiniteScrolling = true;
+                            //this.set('infiniteScrolling',true);
                         }
                     }
 
