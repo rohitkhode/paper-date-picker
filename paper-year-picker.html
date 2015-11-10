@@ -70,7 +70,7 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
  <div id="container">
     <template repeat="{{yearArray}}" as="y">
         <!--<paper-button class="year {{ { selected : y == year} | tokenList  }}" on-tap="{{yearSelected}}" data-year$="{{y}}"><span>{{y}}</span></paper-button>-->
-        <div class="year {{ { selected : y.n == year} | tokenList  }}" on-tap="{{yearSelected}}" data-year$="{{y.n}}"><span>{{y.year}}</span></div>
+        <div class="{{_getYearClass(y, year)}}" on-tap="{{yearSelected}}" data-year$="{{y.n}}"><span>{{y.year}}</span></div>
     </template>
   </div>
 
@@ -144,6 +144,13 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
       }
     },
     
+      _getYearClass : function(y, year){
+        if(y.n == year){
+            return "year selected";
+        } else {
+            return "year";
+        }
+      },
     refreshScrollPosition: function(){
       var that = this;
       setTimeout(function(){

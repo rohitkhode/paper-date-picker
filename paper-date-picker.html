@@ -138,7 +138,7 @@ Example:
               <div class="day"></div>
             </template>
             <template is="dom-if" if="{{day}}">
-              <div class="day {{ { selected : day.n == currentDay && month.number == currentMonth && month.year == currentYear } | tokenList }}" enabled="{{day.enabled}}" data-date$="{{day.n}}" data-month$="{{month.number}}" data-year$="{{month.year}}">
+              <div class$="{{_getDateClass(day,month,currentDay,currentMonth,currentYear)}}" enabled="{{day.enabled}}" data-date$="{{day.n}}" data-month$="{{month.number}}" data-year$="{{month.year}}">
                 <span>{{day.day}}</span>
               </div>
             </template>
@@ -174,7 +174,8 @@ Example:
                      */
                     date: {
                         type: Date,
-                        value: new Date()
+                        value: new Date(),
+                        observer:'dateChanged'
                     },
                     /**
                      * Lowest selectable date (inclusive)
@@ -255,7 +256,14 @@ Example:
                 intl: {
 
                 },
-
+                
+                _getDateClass: function(day, month, currentDay, currentMonth, currentYear){
+                    if(day.n == currentDay && month.number == currentMonth && month.year == currentYear)
+                        return "day selected";
+                    else
+                        return "day";                    
+                },
+                
                 renderMonths: function(start, end) {
                     start = cleanMonthDateArrayObject(start);
                     end = cleanMonthDateArrayObject(end);
